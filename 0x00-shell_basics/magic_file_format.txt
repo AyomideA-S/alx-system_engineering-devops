@@ -1,0 +1,9 @@
+Below is the basic format of a .mgc (magic file)
+
+Byte-offset Value-type test message
+!:mime MIMETYPE
+
+An example:
+
+0 string <!DOCTYPE> HTML document
+!:mime text/html
