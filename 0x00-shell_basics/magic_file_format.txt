@@ -1,9 +1,20 @@
 Below is the basic format of a .mgc (magic file)
 
-Byte-offset Value-type test message
-!:mime MIMETYPE
+Byte-offset	 Value-type	 test	 message
+!:mime	 MIMETYPE
 
 An example:
 
-0 string <!DOCTYPE> HTML document
-!:mime text/html
+0	 string		=<!DOCTYPE>	 HTML document
+!:mime	 text/html
+
+
+Finally, use the following command to compile your magic file:
+
+file -C -m <file>.mgc
+
+
+To make use of the magic file try:
+
+file -m <file>.mgc <target>
+file --mime-type -m <file>.mgc <target>
