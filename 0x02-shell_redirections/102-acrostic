@@ -1,2 +1,2 @@
 #!/bin/bash
-cut -b 1 | tr -d '\n' | sed 's/$/\n/'
+cut -c1 | paste -s | tr -d "[:blank:]"
