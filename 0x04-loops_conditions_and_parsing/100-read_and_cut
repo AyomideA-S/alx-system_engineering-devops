@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# A script that displays the contents of the file `/etc/passwd`.
+# Only displays:
+# 	username
+# 	user id
+# 	user home directory path
+
+FILE_NAME="/etc/passwd"
+i=0
+lines=0
+IFS=':'
+if test -f $FILE_NAME; then
+  lines="$(wc -l < $FILE_NAME)"
+  fields=('username' 'password' 'user_id' 'group_id' 'user_id_info' 'home_dir' 'command')
+  while [[ $i -lt $lines ]]; do
+    i="$((i + 1))"
+    read -r -a fields < <(tail -n 1 <(head -n $i < $FILE_NAME))
+    echo "${fields[0]}:${fields[2]}:${fields[5]}"
+  done
+fi
