@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# A script that displays numbers from 1 to 100 in FizzBuz pattern.
+
+COUNTER=1
+until [ $COUNTER -gt 100 ]; do
+	if [[ $(expr $COUNTER % 3) = 0 && $(expr $COUNTER % 5) -eq 0 ]]; then
+		echo "FizzBuzz"
+	elif ((COUNTER % 3 == 0)); then
+		echo "Fizz"
+	elif ((COUNTER % 5 == 0)); then
+		echo "Buzz"
+	else
+		echo $COUNTER
+	fi
+	let COUNTER+=1
+done
