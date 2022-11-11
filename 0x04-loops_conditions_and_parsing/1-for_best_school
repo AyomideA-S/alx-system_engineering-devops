@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This script that echoes "Best School" 10 times.
+# This script echoes "Best School" 10 times using the "for" loop.
 
 for i in {1..10}; do
 	echo "Best School"
