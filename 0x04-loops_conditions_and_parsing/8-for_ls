@@ -4,7 +4,7 @@
 # 	In a list format
 # 	Where only the part of the name after the first dash is displayed (refer to the example)
 
-for file in $(ls); do
+for file in *; do
 	file=$(echo  "$file" | cut -f 2 -d '-')
-	echo $file 
+	echo "$file"
 done

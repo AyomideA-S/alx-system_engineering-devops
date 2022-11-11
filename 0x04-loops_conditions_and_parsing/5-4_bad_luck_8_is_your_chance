@@ -14,5 +14,5 @@ do
 	else
 		echo "Best School"
         fi
-        COUNTER=$[$COUNTER+1]
+	COUNTER=$((COUNTER+1))
 done

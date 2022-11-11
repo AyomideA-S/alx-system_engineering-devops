@@ -3,7 +3,7 @@
 
 COUNTER=1
 until [ $COUNTER -gt 100 ]; do
-	if [[ $(expr $COUNTER % 3) = 0 && $(expr $COUNTER % 5) -eq 0 ]]; then
+	if [[ $((COUNTER % 3)) = 0 && $((COUNTER % 5)) -eq 0 ]]; then
 		echo "FizzBuzz"
 	elif ((COUNTER % 3 == 0)); then
 		echo "Fizz"
@@ -12,5 +12,5 @@ until [ $COUNTER -gt 100 ]; do
 	else
 		echo $COUNTER
 	fi
-	let COUNTER+=1
+	COUNTER=$((COUNTER+1))
 done

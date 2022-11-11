@@ -8,5 +8,5 @@ do
 	if [ $COUNTER = 8 ]; then
 		echo "Hi"
 	fi
-        COUNTER=$[$COUNTER+1]
+	COUNTER=$((COUNTER+1))
 done
