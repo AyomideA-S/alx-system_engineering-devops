@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# This script echoes "Best School" 10 times using the "while" loop, but for the 9th iteration, displays Best School and then Hi on a new line.
+
+COUNTER=0
+while [ $COUNTER -lt 10 ]
+do
+        echo "Best School"
+	if [ $COUNTER = 8 ]; then
+		echo "Hi"
+	fi
+        COUNTER=$[$COUNTER+1]
+done
