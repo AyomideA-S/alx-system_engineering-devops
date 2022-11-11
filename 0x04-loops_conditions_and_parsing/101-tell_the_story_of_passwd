@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# A script that tells a story based on the contents of the `/etc/passwd` file.
+
+FILE_NAME="/etc/passwd"
+i=0
+lines=0
+IFS=':'
+if test -f $FILE_NAME; then
+  lines="$(wc -l < $FILE_NAME)"
+  fields=('username' 'password' 'user_id' 'group_id' 'user_id_info' 'home_dir' 'command')
+  while [[ $i -lt $lines ]]; do
+    i="$((i + 1))"
+    read -r -a fields < <(tail -n 1 <(head -n $i < $FILE_NAME))
+    echo "The user ${fields[0]} is part of the ${fields[3]} gang, lives in ${fields[5]} and \
+rides ${fields[6]}. ${fields[2]}'s place is protected by the passcode ${fields[1]}, more \
+info about the user here: ${fields[4]}"
+  done
+fi
