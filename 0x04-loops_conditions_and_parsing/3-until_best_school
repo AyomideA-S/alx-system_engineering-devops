@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This script echoes "Best School" 10 times using the "until" loop.
+
+COUNTER=19
+until [ $COUNTER -lt 10 ]; do
+	echo "Best School"
+	let COUNTER-=1
+done
