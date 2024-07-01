@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Connects to my server 100.26.10.20
 # using the private key `~/.ssh/school` with the user `ubuntu`.
 
