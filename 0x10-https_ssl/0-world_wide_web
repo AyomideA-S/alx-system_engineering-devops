@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
+# Displays informtation about subdomains.
+# Usage: ./0-world_wide_web.sh <domain> <subdomain>
+# Example: ./0-world_wide_web.sh hbtn.io www
+
 # Configure my domain zone:
-# www --> 82202-lb-01 100.25.147.92
-# web-01 --> 82202-web-01 100.24.74.197
-# web-02 --> 82202-web-02 52.91.117.197
+# www --> 78716-lb-01 54.160.93.43
+# lb-01 --> 78716-web-01 54.160.93.43
+# web-01 --> 78716-web-01 100.26.10.20
+# web-02 --> 78716-web-02 100.26.56.219
 
 # -- To be evaluated --
 # domain_information () {
@@ -10,35 +15,38 @@
 #     echo "$2 $line" | awk '{print "The subdomain " $1 " is a " $2 " record and points to " $3}'
 # }
 
-# if [ "$#" == 1 ]
-# then
-#   domain_information "$1" "www"
-#   domain_information "$1" "lb-01"
-#   domain_information "$1" "web-01"
-#   domain_information "$1" "web-02"
-# elif [ "$#" == 2 ]
-# then
-#   domain_information "$1" "$2"
-# fi
-#-- To be evaluated --
+# uncomment for debugging purposes.
+# set -x
 
-subdomains_all=( "www" "lb-01" "web-01" "web-02" )
+# for the checker to work please remove the colors.
 
-runDig () {
-    subdomain=$1
-    domain=$2
+# colors
+# blue='\e[1;34m'
+# brown='\e[0;33m'
+# reset='\033[0m'
 
-    dig "$subdomain.$domain" | grep -A1 'ANSWER SECTION:' | tail -1 | awk -v s="$subdomain" 'BEGIN { FS = " " } ; { print "The subdomain " s " is a " $4 " record and points to " $5 }'
+# variables & parameters
+subdomains=( "www" "lb-01" "web-01" "web-02" )
+domain="$1"
+sub="$2"
+
+dig_cmd () {
+	# func variables
+	sub="$2"
+	INFO="$(dig "$sub.$domain" | grep -A1 'ANSWER SECTION:' | awk 'NR==2')"
+	IP=$(echo "$INFO" | awk '{print $5}')
+	RECORD=$(echo "$INFO" | awk '{print $4}')
+
+	# echo -e "${brown}The subdomain ${blue}$sub${brown} is a ${blue}$RECORD${brown} record and points to ${blue}$IP${reset}"
+	echo -e "The subdomain $sub is a $RECORD record and points to $IP"
 }
 
-if [ $# -eq 1 ]; then
-    domain="$1"
-    for i in "${subdomains_all[@]}"
-    do
-	runDig "$i" "$domain"
-    done
+if [ $# -lt 1 ]; then
+    echo "Usage: 0-world_wide_web.sh <domain> <subdomain>"
+elif [ $# -eq 1 ]; then
+	for subs in "${subdomains[@]}"; do
+		dig_cmd "$domain" "$subs"
+	done
 elif [ $# -eq 2 ]; then
-    domain="$1"
-    subdomain="$2"
-    runDig "$subdomain" "$domain"
+	dig_cmd "$domain" "$sub"
 fi

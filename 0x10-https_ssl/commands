@@ -1,0 +1,19 @@
+sudo apt update
+sudo apt install snapd
+sudo apt-get remove certbot
+sudo apt-get install certbot
+
+sudo systemctl stop nginx
+sudo systemctl status nginx
+
+sudo service haproxy stop
+curl localhost
+
+sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d www.ayomide.tech
+sudo ls /etc/letsencrypt/live/www.ayomide.tech
+sudo mkdir -p /etc/haproxy/certs
+DOMAIN='www.ayomide.tech' sudo -E bash -c 'cat /etc/letsencrypt/live/$DOMAIN/fullchain.pem /etc/letsencrypt/live/$DOMAIN/privkey.pem > /etc/haproxy/certs/$DOMAIN.pem'
+sudo chmod -R go-rwx /etc/haproxy/certs
+sudo nano /etc/haproxy/haproxy.cfg
+
+sudo service haproxy start
