@@ -1,0 +1,10 @@
+web01 - CREATE USER slave@'%' IDENTIFIED BY 'password';
+web01 - GRANT REPLICATION SLAVE ON *.* TO slave@'%';
+web01 - FLUSH PRIVILEGES;
+web01 - SHOW MASTER STATUS;
+
+web02 - CHANGE MASTER TO MASTER_HOST='10.0.0.156', MASTER_USER='repl', MASTER_PASSWORD='slavepass', MASTER_LOG_FILE='recorded_log_file_name', MASTER_LOG_POS=log_position;
+-- CHANGE MASTER TO MASTER_HOST='100.26.10.20', MASTER_USER='slave', MASTER_PASSWORD='password', MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS=749;
+web02 - START SLAVE;
+
+sudo service mysql restart
