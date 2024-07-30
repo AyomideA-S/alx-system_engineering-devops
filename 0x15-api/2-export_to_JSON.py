@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""Exports to-do list information for a given employee ID from an API to JSON format."""
+"""
+Exports to-do list information for a given employee ID from an API
+to JSON format.
+"""
 import csv
 import json
 import requests
